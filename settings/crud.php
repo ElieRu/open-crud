@@ -54,4 +54,24 @@ class Crud extends Settings
 
         return $display();
     }
+
+    public function update(int $id, array $datas)
+    {
+        $attributs = $this->attributs;
+        array_shift($attributs);
+        array_push($attributs, $this->id);
+        array_push($datas, $id);
+        $reqUp = Params::magic($attributs, false, true);
+        $condition = $this->id . '=:' . $this->id;
+
+        $update = $this->connection()->prepare("UPDATE {$this->table} SET {$reqUp} WHERE {$condition}");
+        return $update->execute(Params::request($attributs, $datas));
+    }
+
+    public function delete(int $id)
+    {
+        $condition = $this->id . '=:' . $this->id;
+        $delete = $this->connection()->prepare("DELETE FROM {$this->table} WHERE {$condition}");
+        $delete->execute([$this->id => $id]);
+    }
 }
