@@ -19,4 +19,39 @@ class Crud extends Settings
 
         return $save();
     }
+
+    public function read(array $fields = null, string $condition = null, array $value = null, $limit = null)
+    {
+
+        $fields = (isset($fields) && !empty($fields)) ? Params::magic($fields, false) : '*';
+        $condition = isset($condition) ? $condition : '1';
+        $lmt = (gettype($limit) === 'integer') ? $limit : 10;
+        $limit = (gettype($limit) === 'array') ? Params::magic($limit, false) : $lmt;
+
+        $type = function (object $all_datas) {
+            $listDatas = [];
+            $tmp = [];
+
+            while ($datas = $all_datas->fetch($this->type)) {
+                $listDatas[] = $datas;
+            }
+
+            return $tmp = !empty($listDatas) ? $listDatas : "empty";
+        };
+
+        $display = function () use ($value, $fields, $type, $condition, $limit) {
+            
+            if (isset($value)) {
+                $prepare = $this->connection()->prepare("SELECT {$fields} FROM {$this->table} WHERE {$condition} limit {$limit}");
+                $prepare->execute($value);
+                return $type($prepare);
+            } else {
+                $query = $this->connection()->query("SELECT {$fields} FROM {$this->table} WHERE {$condition} LIMIT {$limit}");
+                return $type($query);
+                // conditionition and value
+            }
+        };
+
+        return $display();
+    }
 }
