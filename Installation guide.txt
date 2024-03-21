@@ -1,0 +1,12 @@
+Installation
+
+1. Be sure to created the database.
+
+2. Connect the server side to the database by initialize your database informations in the `/database/db-infos.php` file.
+But by default, you need to initialize the `$dbname` only.
+
+3. Link the `init.php` in the file that you need to instantiate OpenCRUD.
+
+4. Follow the documentation on :
+   * https://open-crud-plateform.netlify.app/
+   * https://github.com/ElieRu/OpenCRUD

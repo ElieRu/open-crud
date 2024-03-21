@@ -75,3 +75,6 @@ class Crud extends Settings
         $delete->execute([$this->id => $id]);
     }
 }
+
+
+

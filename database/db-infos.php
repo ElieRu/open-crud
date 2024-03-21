@@ -3,7 +3,7 @@
 include_once 'implement.php';
 
 $dns = 'localhost';
-$dbname = 'your-batabase-name';
+$dbname = 'your-db-name';
 $username = 'root';
 $password = '';
 
