@@ -51,9 +51,8 @@ The create operation allow you to save datas by calling the create method of the
 
 ```
 # The save a data
-$users->create($form_data);
+$users->create($formData);
 ```
-// array $formData != $datas
 The create method requires an array of data to be saved, excluding the primary key. However, it accepts foreign keys for establishing relationships with other data entities.
 
 ## Read
