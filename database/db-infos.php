@@ -3,7 +3,7 @@
 include_once 'implement.php';
 
 $dns = 'localhost';
-$dbname = 'your-db-name';
+$dbname = 'icrud';
 $username = 'root';
 $password = '';
 
@@ -19,6 +19,3 @@ $password = '';
 
 $database = new implement($dns, $dbname, $username, $password);
 $database->connection();
-
-
-?>

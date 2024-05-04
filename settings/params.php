@@ -26,6 +26,8 @@ class Params
             $formData[$attributs[$key]] = $datas[$key];
         }
 
+        var_dump($formData);
+
         return $formData;
     }
 }

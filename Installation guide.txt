@@ -1,9 +1,9 @@
 Installation
 
-1. Be sure to created the database.
+1. Be sure to created the database in mySQL.
 
-2. Connect the server side to the database by initialize your database informations in the `/database/db-infos.php` file.
-But by default, you need to initialize the `$dbname` only.
+2. Initialise your database informations in the `/database/db-infos.php` file.
+But by default, you need to initialise the `$dbname` only.
 
 3. Link the `init.php` in the file that you need to instantiate OpenCRUD.
 

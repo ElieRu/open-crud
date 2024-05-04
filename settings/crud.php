@@ -4,23 +4,24 @@ include_once 'settings.php';
 
 class Crud extends Settings
 {
-    public function create(array $datas)
+    public function create(array $formData)
     {
         $tmpAttributs = $this->attributs;
-        array_unshift($datas, null);
+        
+        array_unshift($formData, null);
+        
         $prepAttributs = Params::magic($tmpAttributs, false);
         $reqAttributs = Params::magic($tmpAttributs, true);
 
-        $save = function () use ($tmpAttributs, $prepAttributs, $reqAttributs, $datas) {
-
+        $save = function () use ($tmpAttributs, $prepAttributs, $reqAttributs, $formData) {
             $request = $this->connection()->prepare("INSERT INTO {$this->table} ($prepAttributs) VALUES ($reqAttributs)");
-            return $request->execute(Params::request($tmpAttributs, $datas));
+            return $request->execute(Params::request($tmpAttributs, $formData));
         };
 
         return $save();
     }
 
-    public function read(array $fields = null, string $condition = null, array $value = null, $limit = null)
+    public function read(array $fields = null, string $condition = null, array $values = null, $limit = null)
     {
 
         $fields = (isset($fields) && !empty($fields)) ? Params::magic($fields, false) : '*';
@@ -39,33 +40,33 @@ class Crud extends Settings
             return $tmp = !empty($listDatas) ? $listDatas : "empty";
         };
 
-        $display = function () use ($value, $fields, $type, $condition, $limit) {
+        $display = function () use ($values, $fields, $type, $condition, $limit) {
             
-            if (isset($value)) {
+            if (isset($values)) {
                 $prepare = $this->connection()->prepare("SELECT {$fields} FROM {$this->table} WHERE {$condition} limit {$limit}");
-                $prepare->execute($value);
+                $prepare->execute($values);
                 return $type($prepare);
             } else {
                 $query = $this->connection()->query("SELECT {$fields} FROM {$this->table} WHERE {$condition} LIMIT {$limit}");
                 return $type($query);
-                // conditionition and value
+                // condition and value
             }
         };
 
         return $display();
     }
 
-    public function update(int $id, array $datas)
+    public function update(int $id, array $formData)
     {
         $attributs = $this->attributs;
         array_shift($attributs);
         array_push($attributs, $this->id);
-        array_push($datas, $id);
+        array_push($formData, $id);
         $reqUp = Params::magic($attributs, false, true);
         $condition = $this->id . '=:' . $this->id;
 
         $update = $this->connection()->prepare("UPDATE {$this->table} SET {$reqUp} WHERE {$condition}");
-        return $update->execute(Params::request($attributs, $datas));
+        return $update->execute(Params::request($attributs, $formData));
     }
 
     public function delete(int $id)
