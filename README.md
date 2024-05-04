@@ -1,32 +1,32 @@
-# Introduction
+# Overview
 ---
 
-**Hey!**
-- Are you use native PHP programming?
-- Does it often make it difficult for you to connect to the database? or
-- Isn't it tiring to rewrite the same code every time to manipulate your database data?
-- OpenCRUD is an open source package built in PHP to facilitate the connection on mySQL database and makes the CRUD very easy.
+OpenCrud is an open-source package created in native PHP that simplifies connecting to MySQL databases and makes it easier to manage databases using object-oriented programming.
 
-So, what is the problem?
-The difficulty of connecting to a MySQL server.
-The problem arises with the often complex rewriting of code, which is a waste of time when working on a big or a complex projects.
-In this tutorial, we want to explain you how OpenCRUD can be installed and used in your different projects to help your to the development of your programs very easily.
+**Some challenges :**
+- How to connect my app to the database?
+- How to make CRUD easier to use?
+
+In this documentation, we want to explain you how OpenCRUD package can be connected to your application and use different operations to manage your datas from a mySql database. 
 
 # Installation
 ---
 
 1. **Requirements**
 
-  - Be free with the Object Oriented Programming.
   - Be sure to have a PHP version that is up to date.
+  - You might know object-oriented programming, or you might not.
     
-2. **Installation**
+2. **Connection**
 
 - [Download](https://github.com/ElieRu/OpenCRUD/archive/refs/heads/main.zip) and insert the package in your project.
 - Create the mySQL database.
 - Initialise your database informations in the `/database/db-infos.php` file.
 - Link the `init.php` in the file that you need to instantiate OpenCRUD.
+  
   Note : By default, you need to initialise the `$dbname` variable only.
+
+  MySql rules : Your table's attributes will have the `null` value by default. Except the primary key.
 
 3. **Instanciation**
 
@@ -53,6 +53,7 @@ The create operation allow you to save datas by calling the create method of the
 # The save a data
 $users->create($formData);
 ```
+
 The create method requires an array of data to be saved, excluding the primary key. However, it accepts foreign keys for establishing relationships with other data entities.
 
 ## Read
@@ -68,6 +69,7 @@ The required params :
 
 - `array|null $fields` select attribute(s) of the table instatiated.
 - Sort datas with the `string|null $condition` if necessary.
+  
 ```
 # Query statement
 $condition="name='john' and postname='doe'"
@@ -75,33 +77,48 @@ $condition="name='john' and postname='doe'"
 
 # Prepared statement
 $condition="name=? and postname=?"
-=> The $values param should be an array with name and postname values
+=> The $values param should be an array
 ex. $values = ['john', 'doe']
 ```
+
+  Note : The `fields` param can be initialize by `'*'` to return all datas.
 - `array $values` must get values of the attributes in the condition.
   Note : The initialisation of this variable require a **prepared statement.**
-- `array|int $limit`
+- `array|int $limit` select datas. Else, you can use an array.
 
-Note : The fields parameter allows selecting all table attributes if set to `null` or `'*'`.
+```
+# Select only 5 datas
+$limit = 5
+
+# Select by the 5th to 10th data
+$limit = [5, 10]
+```
 
 ## Update
 
+The update operation refers to actions that modify existing data within a database or storage system. It allows you to change specific values or attributes of a record without deleting and recreating it entirely.
+  
 ```
-# Update datas
-$users->update($id, $datas);
+# Update users data
+$users->update($id, $formData);
 ```
 
 The required params :
 
-  - `int $id`
-  - `array $datas`
+  - `int $id` select the specific data to update.
+  - `array $formDatas` contain new informations of a data.
+  
+  Note : The `array $formData` should have the values of attributes of the table.
 
 ## Delete
 
+The Delete operation refers to the functionality that allows you to remove data from a database or storage system. It's the process of permanently erasing a specific record or set of records based on certain criteria.
+
 ```
-# Delete datas
+# Remove a user data
 $users->delete($id);
 ```
+
 The required param :
   
-  - `int $id`
+  - With the `int $id` param, you can select the data.
