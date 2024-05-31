@@ -1,7 +1,7 @@
 # Overview
 ---
 
-OpenCrud is an open-source package created in native PHP that simplifies connecting to MySQL databases and makes it easier to manage databases using object-oriented programming.
+open-crud is an open-source package created in native PHP that simplifies connecting to MySQL databases and makes it easier to manage databases using object-oriented programming.
 
 **Some challenges :**
 - How to connect my app to the database?
