@@ -122,3 +122,17 @@ $users->delete($id);
 The required param :
   
   - With the `int $id` param, you can select the data.
+
+
+## 📌 Conclusion
+
+OpenCrud is a powerful tool for backend developers using native PHP. It simplifies connecting to MySQL databases and managing CRUD operations. However, this open-source project needs updates to improve performance and code maintainability. Without these improvements, its utility is limited to smaller projects.
+
+- Contribute (Repository Link)
+https://github.com/ElieRu/open-crud
+
+- Article link
+https://dev.to/elieru/easy-crud-and-database-connection-with-opencrud-2m1n
+
+- Linkdin
+https://www.linkedin.com/in/elie-ruhamya-996826285/
